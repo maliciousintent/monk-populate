@@ -1,6 +1,6 @@
 {
   "name": "monk-populate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "mongoose-like .populate method for co-monk",
   "main": "index.js",
   "scripts": {

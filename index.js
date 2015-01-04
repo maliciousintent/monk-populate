@@ -4,7 +4,7 @@ var debug = require('debug')('monk-populate');
 var util = require('util');
 var each = require('co-each');
 var Doth = require('doth');
-var doth = new Doth(); doth.strict = true;
+var doth = new Doth(); doth.strict = false; // @FIXME eventually, this should be true
 
 var assert = require('assert');
 
