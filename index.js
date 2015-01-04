@@ -1,6 +1,7 @@
 'use strict';
 
-// var debug = require('debug');
+var debug = require('debug')('monk-populate');
+var util = require('util');
 var each = require('co-each');
 var Doth = require('doth');
 var doth = new Doth(); doth.strict = true;
@@ -22,6 +23,7 @@ module.exports = function* _monkPopulate(targetCollection, list, fields, pathToF
     });
   }).flatten().unique().compact(true);
   
+  debug('id map is %s', util.inspect(ids));
   
   var collectionObjects = {};
   yield each(ids, function* _expandIdGenerator(id) {
@@ -29,6 +31,7 @@ module.exports = function* _monkPopulate(targetCollection, list, fields, pathToF
     assert(collectionObjects[id] !== null, 'Object with id ' + id + ' does not exist in collection. Check _id and collection name (missing s?).');
   });
   
+  debug('collected %d objects from db', Object.keys(collectionObjects).length);
   
   // var attrName = pathToForeignKey.pop();
   // pathToForeignKey will now not contain the leaf
@@ -36,8 +39,15 @@ module.exports = function* _monkPopulate(targetCollection, list, fields, pathToF
   list.forEach(function (item) {
     fields.forEach(function (field) {
       var path = _normalizePath(field, pathToForeignKey);
+      path = path.split('.');
+      var leaf = path.pop();
+      path = path.join('.');
+      
       // in-line replace
-      doth.replace(item, path, function (id) { return collectionObjects[id]; });
+      doth.replace(item, path, function (o) {
+        debug('updating path %s with object %s', path, util.inspect(collectionObjects[o[leaf]]));
+        return collectionObjects[o[leaf]];
+      });
     });
   });
   
