@@ -1,0 +1,30 @@
+{
+  "name": "monk-populate",
+  "version": "0.0.1",
+  "description": "mongoose-like .populate method for co-monk",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:plasticpanda/monk-populate.git"
+  },
+  "author": "Simone Lusenti <simone@plasticpanda.com>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/plasticpanda/monk-populate/issues"
+  },
+  "homepage": "https://github.com/plasticpanda/monk-populate",
+  "dependencies": {
+    "co-each": "^0.1.0",
+    "doth": "^0.3.0"
+  },
+  "devDependencies": {
+    "debug": "^2.1.1",
+    "tape": "^3.0.3"
+  },
+  "engines": {
+    "node": "^0.11"
+  }
+}
