@@ -10,6 +10,20 @@ mongoose-like .populate method for co-monk.
 For usage check the ```test``` folder.
 
 
+## Example
+
+```nodejs
+var users = monk_db.get('users');
+var allTweets = [
+  { content: 'Foo bar', by: { _id: '742ce0fe0e512c9043a4b9af' }  },
+  { content: 'Foo baz', by: { _id: '742ce0fe0e512c9043a4b9ag' }  },
+];
+
+// will expand the "by" field using the "by._id" as primary key
+allTweets = yield populate(users, allTweets, [''], 'by._id');
+```
+
+
 ## LICENSE
 
 This program is free software: you can redistribute it and/or modify
